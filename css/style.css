@@ -304,4 +304,10 @@ body {
 
 .weather {
     margin-left: auto;
+    font-size: 14px;
+}
+
+.weater_now,
+.weather_tomorrow {
+    display: flex;
 }

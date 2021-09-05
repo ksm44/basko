@@ -53,15 +53,10 @@ setTempC = (elem) => {
     document.getElementById("weaterNow").innerHTML = "Сейчас в Сафоново: " + tempC + "°"
 }
 setTempC2 = (elem) => {
-    let tempC2 = Math.floor(elem - 273);
+    let tempC2 = Math.round(elem - 273);
 }
 
 setTomorrow = (elem) => {
-    //console.log(elem.list[8].main.temp);
-    console.log(elem.list[8]);
+    document.getElementById("weaterTomorrow").innerHTML = "Завтра: " + Math.round(elem.list[8].main.temp - 273) + "°"
+    document.getElementById("weathTomorrowIcon").src = icon + elem.list[8].weather[0].icon + ".png"
 }
-
-
-
-//let req = requests.get("https://api.openweathermap.org/data/2.5/weather?q=Sharya,RU&appid=4af562cb0b3a70ab90718fce4662854f");
-//console.log(JSON.parse(req));
