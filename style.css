@@ -96,6 +96,9 @@ select {
     top: 0;
     left: 0;
     z-index: 50;
+    height: 50px;
+    display: flex;
+    align-items: center;
 }
 
 .header__container {
@@ -158,11 +161,11 @@ li {
 }
 
 .main-block__body {
-    padding: 184px 0px 191px 0px;
+    padding: 250px 0px 280px 0px;
     position: relative;
     z-index: 2;
     height: 100%;
-    max-width: 400px;
+    max-width: 550px;
 }
 
 .main-block__image {
@@ -219,7 +222,6 @@ li {
     padding: 0 10px;
     position: absolute;
     right: 0;
-    top: 23px;
 }
 
 .navigation__phone a {
@@ -401,4 +403,56 @@ li {
 
 .menu__item {
     transition-duration: .25s;
+}
+
+.filters {
+    max-width: 700px;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.filters__radio_btn input[type=radio] {
+    display: none;
+}
+
+.filters__radio_btn label {
+    display: inline-block;
+    cursor: pointer;
+    padding: 0px 15px;
+    line-height: 34px;
+    border-radius: 20px;
+    user-select: none;
+    color: #999;
+    background: #eee;
+}
+
+
+/* Checked */
+
+.filters__radio_btn input[type=radio]:checked+label {
+    background: #71c7ec;
+    color: white;
+}
+
+
+/* Hover */
+
+.filters__radio_btn label:hover {
+    background: #cdf0ff;
+}
+
+.products {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.product {
+    margin: 5px;
+    width: 190px;
+    border-radius: 5px;
+    overflow: hidden;
 }
