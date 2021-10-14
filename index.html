@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Balsamiq+Sans:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic" rel="stylesheet" />
+    <script defer src="./scripts/filters.js"></script>
     <title>Баско</title>
 </head>
 
@@ -97,6 +98,10 @@
                                     <input id="radio-5" type="radio" name="radio" value="5">
                                     <label for="radio-5">яйца</label>
                                 </div>
+                                <div class="filters__radio_btn">
+                                    <input id="radio-6" type="radio" name="radio" value="6">
+                                    <label for="radio-6">мясо</label>
+                                </div>
                             </div>
                             <div class="products__wrap">
                                 <div class="products">
@@ -130,27 +135,56 @@
                                     <div class="product">
                                         <div class="image"><img src="./img/beefRibs.png" alt="Молоко"><span>Мясо говядина (рёберная часть) килограмм - 300₽</span></div>
                                     </div>
+                                    <div class="product">
+                                        <div class="image"><img src="./img/eggs.png" alt="Яйца"><span>Яйца десяток - 80₽</span></div>
+                                    </div>
                                 </div>
                             </div>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ipsum natus, minima dolorum assumenda nemo commodi non consectetur sed odit repudiandae quasi placeat dignissimos minus modi nesciunt hic maiores perferendis.</p>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil blanditiis non minus minima quasi quia excepturi, quam exercitationem id pariatur repellendus autem quae? Aliquam alias corporis sed repellat aut iure.
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ipsum natus, minima dolorum assumenda nemo commodi non consectetur sed odit repudiandae quasi placeat dignissimos minus modi nesciunt hic maiores perferendis.</p>
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil blanditiis non minus minima quasi quia excepturi, quam exercitationem id pariatur repellendus autem quae? Aliquam alias corporis sed repellat aut iure.
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ipsum natus, minima dolorum assumenda nemo commodi non consectetur sed odit repudiandae quasi placeat dignissimos minus modi nesciunt hic maiores perferendis.
-                                    </p>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil blanditiis non minus minima quasi quia excepturi, quam exercitationem id pariatur repellendus autem quae? Aliquam alias corporis sed repellat aut iure.
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Asperiores ipsum natus, minima dolorum assumenda nemo commodi non consectetur sed odit repudiandae quasi placeat dignissimos minus modi nesciunt hic maiores
-                                            perferendis.
-                                        </p>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nihil blanditiis non minus minima quasi quia excepturi, quam exercitationem id pariatur repellendus autem quae? Aliquam alias corporis sed repellat aut iure.
-
-                                        </p>
-
                         </div>
                     </div>
                 </div>
+            </section>
+            <section class="page_delivery">
+                <div class="delivery__container _container">
+                    <div class="delivery_body">
+                        <h2 class="ourProducts">Доставка и оплата</h2>
+                        <p class="description">Бесплатная доставка по городу Шарья и в пределах 3-4 км от города.</p>
+                        <div class="delivery_steps">
+                            <div class="delivery_step">
+                                <img src="./img/mobile.png" width="50px" height="80px" alt="Заказ по телефону">
+                                <h3>Заказ</h3><span>Свяжитесь с нами, чтобы уточнить удобное время доставки и предпочитаемая продукция</span></div>
+                            <div class="delivery_border">
+                                <svg width="30px" height="10px">
+                                    <path d="M5 5"/>
+                                    <circle cx="5" cy="5" r="2" fill="#485D82"/>
+                                    <circle cx="15" cy="5" r="3" fill="#485D82"/>
+                                    <circle cx="25" cy="5" r="2" fill="#485D82"/>
+                                </svg>
+                            </div>
+                            <div class="delivery_step">
+                                <img src="./img/cards.png" width="110px" height="80px" alt="Оплата">
+                                <h3>Оплата</h3><span>Сообщите, какой способ оплаты для Вас удобен. Оплатить можно наличными при доставке или переводом</span>
+                            </div>
+                            <div class="delivery_border">
+                                <svg width="30px" height="10px">
+                                    <path d="M5 5"/>
+                                    <circle cx="5" cy="5" r="2" fill="#485D82"/>
+                                    <circle cx="15" cy="5" r="3" fill="#485D82"/>
+                                    <circle cx="25" cy="5" r="2" fill="#485D82"/>
+                                </svg>
+                            </div>
+                            <div class="delivery_step">
+                                <img src="./img/car.png" width="180px" height="80px" alt="Доставка">
+                                <h3>Доставка</h3><span>Ожидайте доставку продуктов к согласованному времени </span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
 
             </section>
+
 
         </main>
         <footer class="footer ">
