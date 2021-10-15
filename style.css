@@ -1,3 +1,8 @@
+html {
+    scroll-behavior: smooth;
+}
+
+
 /* Обнуление */
 
 
@@ -198,6 +203,11 @@ select {
     flex-wrap: wrap;
     z-index: 2;
     margin-top: 20px;
+    width: 100%;
+}
+
+.products_column {
+    width: 100%;
 }
 
 .products__image {
@@ -383,6 +393,22 @@ select {
     transition-duration: .25s;
 }
 
+.btn_products {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #71c7ec;
+    border: none;
+    border-radius: 40px;
+    padding: 20px 30px;
+    color: white;
+}
+
+.btn_products:hover {
+    background-color: white;
+    color: #485D82;
+    cursor: pointer;
+}
+
 .filters {
     max-width: 700px;
     margin: 15px auto;
@@ -428,7 +454,6 @@ select {
     flex-direction: row;
     justify-content: flex-start;
     font-size: 14px;
-    transition-duration: .25s;
 }
 
 .product {
@@ -436,6 +461,14 @@ select {
     width: 190px;
     border-radius: 5px;
     overflow: hidden;
+    transition: all .2s ease-out;
+}
+
+.hidden {
+    visibility: hidden;
+    width: 0;
+    height: 0;
+    margin: 0;
 }
 
 .image {
@@ -501,6 +534,38 @@ select {
     margin-bottom: 20px;
 }
 
+.footer {
+    background-image: url(./img/bg3.jpg);
+}
+
+.footer_body {
+    margin-top: 100px;
+    color: white;
+}
+
+.feedback {
+    display: flex;
+    justify-content: center;
+}
+
+.notice {
+    margin: 20px 0;
+}
+
+form>div {
+    margin-top: 20px;
+}
+
+input,
+textarea {
+    min-width: 300px;
+}
+
+.sign {
+    margin-top: 20px;
+    text-align: center;
+}
+
 @media (max-width: 1100px) {
     .main-block__image img {
         object-position: center;
@@ -547,6 +612,19 @@ select {
     }
     .header__menu {
         margin-right: 0;
+    }
+    .delivery_steps {
+        flex-direction: column;
+        align-items: center;
+    }
+    .delivery_step {
+        width: 290px;
+    }
+    .delivery_border svg {
+        transform: rotate(90deg);
+    }
+    .delivery_border {
+        margin: 10px 0;
     }
 }
 
