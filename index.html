@@ -6,209 +6,1306 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css?family=Balsamiq+Sans:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic" rel="stylesheet" />
-    <script defer src="./scripts/filters.js"></script>
-    <script defer src="./scripts/viewProducts.js"></script>
-    <title>Баско</title>
+    <link rel="shortcut icon" href="img/cow.ico" type="image/x-icon">
+    <title>Баско — Свежее молоко с фермы</title>
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        html {
+            scroll-behavior: auto;
+        }
+        
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: #2D3E50;
+            background: #FAFBFD;
+            line-height: 1.6;
+            overflow: hidden;
+            height: 100vh;
+        }
+        
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: color 0.3s ease;
+        }
+        
+        img {
+            max-width: 100%;
+            display: block;
+            pointer-events: none;
+        }
+        
+        ul {
+            list-style: none;
+        }
+        
+        .wrapper::-webkit-scrollbar {
+            width: 0;
+        }
+        
+        .wrapper {
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .wrapper {
+            height: 100vh;
+            height: 100dvh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+            scrollbar-width: none;
+            -ms-overflow-style: none;
+        }
+        
+        .wrapper::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+        
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            pointer-events: none;
+        }
+        
+        .header__inner {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 24px;
+            pointer-events: auto;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 60px;
+            padding: 12px 28px;
+        }
+        
+        .header__inner.glass {
+            width: calc(100% - 48px);
+            max-width: 1150px;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px) saturate(180%);
+            -webkit-backdrop-filter: blur(16px) saturate(180%);
+            box-shadow: 0 8px 40px rgba(0, 0, 0, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            padding: 8px 24px;
+            margin: 12px auto;
+            border-radius: 60px;
+        }
+        
+        @supports not (backdrop-filter: blur(16px)) {
+            .header__inner.glass {
+                background: rgba(255, 255, 255, 0.92);
+            }
+        }
+        
+        .header__logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 26px;
+            font-weight: 700;
+            color: #2D3E50;
+            letter-spacing: 1px;
+            flex-shrink: 0;
+        }
+        
+        .header__logo span {
+            color: #6ABF8A;
+        }
+        
+        .header__nav {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .header__nav a {
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 500;
+            color: #2D3E50;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .header__nav a:hover {
+            background: rgba(106, 191, 138, 0.12);
+            color: #4A9E6F;
+        }
+        
+        .header__nav a.active {
+            background: #6ABF8A;
+            color: #fff;
+        }
+        
+        .header__phone {
+            flex-shrink: 0;
+            margin-left: 8px;
+        }
+        
+        .header__phone img {
+            height: 22px;
+            width: auto;
+            opacity: 0.7;
+            transition: opacity 0.3s, transform 0.3s;
+        }
+        
+        .header__phone img:hover {
+            opacity: 1;
+            transform: scale(1.05);
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 4px;
+            z-index: 100;
+            pointer-events: auto;
+        }
+        
+        .hamburger span {
+            display: block;
+            width: 26px;
+            height: 2.5px;
+            background: #2D3E50;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+        
+        .hamburger.open span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        
+        .hamburger.open span:nth-child(2) {
+            opacity: 0;
+        }
+        
+        .hamburger.open span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+        
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: -100%;
+            width: 300px;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            padding: 80px 30px 30px;
+            transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            z-index: 99;
+            box-shadow: 4px 0 40px rgba(0, 0, 0, 0.05);
+        }
+        
+        .mobile-menu.open {
+            left: 0;
+        }
+        
+        .mobile-menu a {
+            display: block;
+            padding: 14px 0;
+            font-size: 18px;
+            font-weight: 500;
+            color: #2D3E50;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            transition: color 0.3s;
+        }
+        
+        .mobile-menu a:hover {
+            color: #6ABF8A;
+        }
+        
+        .section {
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 80px 0 40px;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+        
+        .hero {
+            position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+        }
+        
+        .hero__bg {
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+        }
+        
+        .hero__bg img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .hero__bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.5) 60%, transparent 100%);
+        }
+        
+        .hero__grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+            min-height: 60vh;
+        }
+        
+        .hero__content {
+            position: relative;
+            z-index: 1;
+            max-width: 580px;
+            padding: 40px 0;
+        }
+        
+        .hero__empty {}
+        
+        .hero__badge {
+            display: inline-block;
+            background: rgba(106, 191, 138, 0.15);
+            color: #4A9E6F;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+        
+        .hero__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            color: #1A2B3E;
+            margin-bottom: 20px;
+        }
+        
+        .hero__title span {
+            color: #6ABF8A;
+        }
+        
+        .hero__subtitle {
+            font-size: 18px;
+            color: #4A5E72;
+            margin-bottom: 32px;
+            max-width: 460px;
+            font-weight: 400;
+        }
+        
+        .hero__btn {
+            display: inline-block;
+            background: #6ABF8A;
+            color: #fff;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(106, 191, 138, 0.35);
+        }
+        
+        .hero__btn:hover {
+            background: #5AA87A;
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(106, 191, 138, 0.4);
+        }
+        
+        .products-section {
+            background: #FAFBFD;
+            height: 100vh;
+            height: 100dvh;
+            min-height: 100vh;
+            min-height: 100dvh;
+            overflow: hidden;
+        }
+        
+        .products-section>.container {
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 100px;
+        }
+        
+        .section__header {
+            text-align: center;
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+        
+        .section__title {
+            font-family: 'Playfair Display', serif;
+            font-size: 38px;
+            font-weight: 700;
+            color: #1A2B3E;
+            margin-bottom: 12px;
+        }
+        
+        .section__title span {
+            color: #6ABF8A;
+        }
+        
+        .section__desc {
+            color: #5A6E82;
+            font-size: 16px;
+        }
+        
+        .filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+        
+        .filter-btn {
+            padding: 8px 22px;
+            border-radius: 30px;
+            border: 2px solid transparent;
+            background: #EFF1F5;
+            color: #5A6E82;
+            font-weight: 500;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-btn:hover {
+            background: #E2E6ED;
+        }
+        
+        .filter-btn.active {
+            background: #6ABF8A;
+            color: #fff;
+            border-color: #6ABF8A;
+        }
+        
+        .filter-btn input {
+            display: none;
+        }
+        
+        .products-grid {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 20px;
+            height: 480px;
+            max-height: 620px;
+            overflow-x: auto;
+            overflow-y: hidden;
+            padding: 10px 4px 20px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: auto;
+            align-content: flex-start;
+            cursor: grab;
+            user-select: none;
+            scroll-behavior: smooth;
+        }
+        
+        .products-grid:active {
+            cursor: grabbing;
+        }
+        
+        .products-grid::-webkit-scrollbar {
+            height: 6px;
+        }
+        
+        .products-grid::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+        }
+        
+        .products-grid::-webkit-scrollbar-thumb {
+            background: #6ABF8A;
+            border-radius: 10px;
+        }
+        
+        .product-card {
+            flex: 0 0 auto;
+            width: 200px;
+            height: 250px;
+            min-height: 250px;
+            background: #fff;
+            border-radius: 16px;
+            padding: 20px 16px 16px;
+            text-align: center;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.3s ease;
+        }
+        
+        .product-card.hidden {
+            display: none;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .product-card__image {
+            height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+        }
+        
+        .product-card__image img {
+            max-height: 175px;
+            object-fit: contain;
+            transition: transform 0.4s ease;
+        }
+        
+        .product-card:hover .product-card__image img {
+            transform: scale(1.05);
+        }
+        
+        .product-card__name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #2D3E50;
+            margin-bottom: 4px;
+        }
+        
+        .product-card__price {
+            font-size: 16px;
+            font-weight: 700;
+            color: #6ABF8A;
+        }
+        
+        .milk-section {
+            background: #fff;
+        }
+        
+        .facts-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .facts-grid .fact-card:first-child {
+            text-align: right;
+        }
+        
+        .fact-card {
+            padding: 20px 0;
+        }
+        
+        .fact-card h3 {
+            font-size: 18px;
+            color: #1A2B3E;
+            margin-bottom: 8px;
+        }
+        
+        .fact-card p {
+            font-size: 14px;
+            color: #5A6E82;
+            line-height: 1.6;
+        }
+        
+        .fact-image {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .fact-image img {
+            max-height: 300px;
+            border-radius: 20px;
+        }
+        
+        .delivery-section {
+            background: linear-gradient(135deg, #1A2B3E 0%, #2D3E50 100%);
+            color: #fff;
+        }
+        
+        .delivery-section .section__title {
+            color: #fff;
+        }
+        
+        .delivery-section .section__desc {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .delivery-steps {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            gap: 0;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .delivery-step {
+            background: rgba(255, 255, 255, 0.06);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px 24px 24px;
+            text-align: center;
+            flex: 1;
+            min-width: 220px;
+            max-width: 300px;
+            transition: all 0.4s ease;
+        }
+        
+        .delivery-step:hover {
+            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-4px);
+        }
+        
+        .delivery-step img {
+            margin: 0 auto 16px;
+            filter: brightness(0) invert(1);
+            opacity: 0.8;
+            height: 60px;
+            object-fit: contain;
+        }
+        
+        .delivery-step h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .delivery-step p {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.5;
+        }
+        
+        .delivery-arrow {
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 24px;
+        }
+        
+        .footer-section {
+            background: #0F1A26;
+            color: #fff;
+            min-height: 100vh;
+            min-height: 100dvh;
+            display: flex;
+            align-items: center;
+            padding: 80px 0 40px;
+            scroll-snap-align: start;
+            scroll-snap-stop: always;
+        }
+        
+        .footer__inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+        
+        .footer__info h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+        
+        .footer__info p {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 24px;
+        }
+        
+        .footer__form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        
+        .footer__form input,
+        .footer__form textarea {
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            font-size: 14px;
+            transition: border 0.3s;
+            font-family: 'Montserrat', sans-serif;
+            width: 100%;
+        }
+        
+        .footer__form input::placeholder,
+        .footer__form textarea::placeholder {
+            color: rgba(255, 255, 255, 0.3);
+        }
+        
+        .footer__form input:focus,
+        .footer__form textarea:focus {
+            outline: none;
+            border-color: #6ABF8A;
+        }
+        
+        .footer__form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .footer__form .submit-btn {
+            background: #6ABF8A;
+            color: #fff;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+        
+        .footer__form .submit-btn:hover {
+            background: #5AA87A;
+            transform: translateY(-2px);
+        }
+        
+        .footer__bottom {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 13px;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            right: 24px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        
+        .scroll-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(74, 108, 143, 0.25);
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+        
+        .scroll-dot.active {
+            background: #6ABF8A;
+            border-color: #6ABF8A;
+            transform: scale(1.4);
+            box-shadow: 0 0 20px rgba(106, 191, 138, 0.3);
+        }
+        
+        .scroll-dot:hover {
+            transform: scale(1.2);
+        }
+        
+        @media (max-width: 992px) {
+            .facts-grid {
+                grid-template-columns: 1fr;
+                gap: 0;
+            }
+            .facts-grid .fact-card:first-child {
+                text-align: left;
+            }
+            .fact-image img {
+                max-height: 200px;
+                margin: 10px auto;
+            }
+            .footer__inner {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header__nav {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .header__inner {
+                padding: 8px 16px;
+            }
+            .header__inner.glass {
+                margin: 8px 12px;
+                padding: 6px 16px;
+            }
+            .hero__title {
+                font-size: 36px;
+            }
+            .section__title {
+                font-size: 28px;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 12px;
+            }
+            .delivery-steps {
+                flex-direction: column;
+                align-items: center;
+                gap: 16px;
+            }
+            .delivery-step {
+                max-width: 100%;
+                width: 100%;
+            }
+            .delivery-arrow {
+                transform: rotate(90deg);
+                padding: 4px 0;
+            }
+            .scroll-indicator {
+                right: 12px;
+            }
+            .scroll-dot {
+                width: 8px;
+                height: 8px;
+            }
+            .hero__grid {
+                grid-template-columns: 1fr;
+            }
+            .hero__empty {
+                display: none;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero__title {
+                font-size: 28px;
+            }
+            .hero__subtitle {
+                font-size: 15px;
+            }
+            .hero__btn {
+                padding: 14px 28px;
+                font-size: 14px;
+            }
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+            }
+            .product-card__name {
+                font-size: 12px;
+            }
+            .filter-btn {
+                padding: 6px 14px;
+                font-size: 12px;
+            }
+        }
+        
+        @media (max-width: 380px) {
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <div class="wrapper">
-        <header class="header">
-            <div class="header__container _container">
-                <div class="hamburger-menu">
-                    <input id="menu__toggle" type="checkbox" />
-                    <label class="menu__btn" for="menu__toggle">
-                      <span class="crossHamburger"></span>
-                    </label>
-                    <ul class="menu__box">
-                        <li><a class="menu__item" href="#">О кооперативе</a></li>
-                        <li><a class="menu__item" href="#">Продукты</a></li>
-                        <li><a class="menu__item" href="#">Доставка</a></li>
-                        <li><a class="menu__item" href="https://sppk-basko.ru/contacts.html">Контакты</a></li>
-                    </ul>
-                </div>
-                <div class="header__links">
-                    <div class="header__logo"><a href="#">БАСКО</a></div>
-                    <div class="header__navigation">
-                        <nav class="header__menu">
-                            <ul class="menu__list">
-                                <li><a href="#">О кооперативе</a></li>
-                                <li><a href="#">Продукты</a></li>
-                                <li><a href="#">Доставка</a></li>
-                                <li><a href="#">Контакты</a></li>
-                            </ul>
-                        </nav>
-                    </div>
 
+    <div class="wrapper" id="wrapper">
 
-                    <div class="navigation__phone">
-                        <a href="tel:+7(910) 197-83-02">+7(910) 197-83-02</a>
-                    </div>
+        <header class="header" id="header">
+            <div class="header__inner" id="headerInner">
+                <div class="header__logo"><a href="/">БАСКО<span>.</span> </a></div>
+
+                <nav class="header__nav">
+                    <a href="#products">Продукты</a>
+                    <a href="#milk">О молоке</a>
+                    <a href="#delivery">Доставка</a>
+                    <a href="#contacts">Контакты</a>
+                </nav>
+
+                <div class="header__phone">
+                    <img src="img/phone.png" alt="Телефон" loading="lazy">
                 </div>
 
+                <div class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
             </div>
         </header>
-        <main class="page">
-            <div class="page__main-block main-block">
-                <div class="main-block__container _container">
-                    <div class="main-block__body">
-                        <h1 class="main-block__tittle">Свежее молоко прямо с фермы</h1>
-                        <div class="main-block__subtittle">Все продукты производятся на базе собственного производства и фермерских хозяйств</div>
-                        <div class="main-block__btnSection">
-                            <a class="btn_products" href="#page_products">Смотреть продукты</a>
-                        </div>
 
+        <div class="mobile-menu" id="mobileMenu">
+            <a href="#products">Продукты</a>
+            <a href="#milk">О молоке</a>
+            <a href="#delivery">Доставка</a>
+            <a href="#contacts">Контакты</a>
+        </div>
+
+        <div class="scroll-indicator" id="scrollIndicator">
+            <div class="scroll-dot active" data-index="0"></div>
+            <div class="scroll-dot" data-index="1"></div>
+            <div class="scroll-dot" data-index="2"></div>
+            <div class="scroll-dot" data-index="3"></div>
+            <div class="scroll-dot" data-index="4"></div>
+        </div>
+
+        <section class="section hero" id="hero">
+            <div class="hero__bg">
+                <img src="img/background-sky.jpg" alt="Ферма" loading="lazy">
+            </div>
+            <div class="container">
+                <div class="hero__grid">
+                    <div class="hero__content">
+                        <div class="hero__badge">🌿 Вкусно, полезно, свежо!</div>
+                        <h1 class="hero__title">Свежее молоко<br><span>прямо с фермы</span></h1>
+                        <p class="hero__subtitle">Все продукты производятся на базе собственного производства и фермерских хозяйств. Натурально, честно, вкусно.</p>
+                        <a href="#products" class="hero__btn">Смотреть продукты</a>
                     </div>
-                    <div class="main-block__image _imgbg">
-                        <img src="img/fon-nebo.jpg" alt="Background">
+                    <div class="hero__empty"></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section products-section" id="products">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Наши <span>продукты</span></h2>
+                    <p class="section__desc">В ассортименте нашего фермерского хозяйства — только лучшее, что мы производим с любовью.</p>
+                </div>
+
+                <div class="filters" id="filters">
+                    <label class="filter-btn active" data-filter="all">
+                        <input type="radio" name="filter" value="all" checked> Все
+                    </label>
+                    <label class="filter-btn" data-filter="milk">
+                        <input type="radio" name="filter" value="milk"> Молоко
+                    </label>
+                    <label class="filter-btn" data-filter="sourcream">
+                        <input type="radio" name="filter" value="sourcream"> Сметана
+                    </label>
+                    <label class="filter-btn" data-filter="cottage">
+                        <input type="radio" name="filter" value="cottage"> Творог
+                    </label>
+                    <label class="filter-btn" data-filter="eggs">
+                        <input type="radio" name="filter" value="eggs"> Яйца
+                    </label>
+                    <label class="filter-btn" data-filter="meat">
+                        <input type="radio" name="filter" value="meat"> Мясо
+                    </label>
+                </div>
+
+                <div class="products-grid" id="productsGrid">
+                    <div class="product-card" data-category="milk">
+                        <div class="product-card__image"><img src="img/milk.png" alt="Молоко" loading="lazy"></div>
+                        <div class="product-card__name">Молоко коровье</div>
+                        <div class="product-card__price">60 ₽ / л</div>
+                    </div>
+                    <div class="product-card" data-category="cottage">
+                        <div class="product-card__image"><img src="img/cottageCheese.png" alt="Творог" loading="lazy"></div>
+                        <div class="product-card__name">Творог</div>
+                        <div class="product-card__price">240 ₽ / кг</div>
+                    </div>
+                    <div class="product-card" data-category="sourcream">
+                        <div class="product-card__image"><img src="img/sourCream.png" alt="Сметана" loading="lazy"></div>
+                        <div class="product-card__name">Сметана 400 г</div>
+                        <div class="product-card__price">130 ₽</div>
+                    </div>
+                    <div class="product-card" data-category="sourcream">
+                        <div class="product-card__image"><img src="img/sourCream.png" alt="Сметана" loading="lazy"></div>
+                        <div class="product-card__name">Сметана 200 г</div>
+                        <div class="product-card__price">65 ₽</div>
+                    </div>
+                    <div class="product-card" data-category="cheese">
+                        <div class="product-card__image"><img src="img/cheese.png" alt="Сыр" loading="lazy"></div>
+                        <div class="product-card__name">Сыр адыгейский</div>
+                        <div class="product-card__price">400 ₽ / кг</div>
+                    </div>
+                    <div class="product-card" data-category="meat">
+                        <div class="product-card__image"><img src="img/pork.png" alt="Свинина" loading="lazy"></div>
+                        <div class="product-card__name">Свинина</div>
+                        <div class="product-card__price">300 ₽ / кг</div>
+                    </div>
+                    <div class="product-card" data-category="meat">
+                        <div class="product-card__image"><img src="img/beef.png" alt="Говядина" loading="lazy"></div>
+                        <div class="product-card__name">Говядина (филе)</div>
+                        <div class="product-card__price">550 ₽ / кг</div>
+                    </div>
+                    <div class="product-card" data-category="meat">
+                        <div class="product-card__image"><img src="img/beefLeg.png" alt="Говядина" loading="lazy"></div>
+                        <div class="product-card__name">Говядина (задняя)</div>
+                        <div class="product-card__price">450 ₽ / кг</div>
+                    </div>
+                    <div class="product-card" data-category="meat">
+                        <div class="product-card__image"><img src="img/beefNeck.png" alt="Говядина" loading="lazy"></div>
+                        <div class="product-card__name">Говядина (передняя)</div>
+                        <div class="product-card__price">420 ₽ / кг</div>
+                    </div>
+                    <div class="product-card" data-category="meat">
+                        <div class="product-card__image"><img src="img/beefRibs.png" alt="Говядина" loading="lazy"></div>
+                        <div class="product-card__name">Говядина (рёбра)</div>
+                        <div class="product-card__price">300 ₽ / кг</div>
+                    </div>
+                    <div class="product-card" data-category="eggs">
+                        <div class="product-card__image"><img src="img/eggs.png" alt="Яйца" loading="lazy"></div>
+                        <div class="product-card__name">Яйца</div>
+                        <div class="product-card__price">80 ₽ / дес.</div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <section class="page_products" id="page_products">
-                <div class="products__container _container">
-                    <div class="products__body">
-
-                        <div class="products_column">
-                            <h2 class="ourProducts">Наши продукты</h2>
-                            <p class="description">На сегодняшний день в ассортименте нашего фермерского хозяйства имеются следующие продукты:</p>
-                            <div class="filters">
-                                <div class="filters__radio_btn">
-                                    <input id="radio-1" type="radio" value="1" name="radio" checked>
-                                    <label for="radio-1">популярное</label>
-                                </div>
-
-                                <div class="filters__radio_btn">
-                                    <input id="radio-2" type="radio" name="radio" value="2">
-                                    <label for="radio-2">молоко</label>
-                                </div>
-
-                                <div class="filters__radio_btn">
-                                    <input id="radio-3" type="radio" name="radio" value="3">
-                                    <label for="radio-3">сметана</label>
-                                </div>
-
-                                <div class="filters__radio_btn">
-                                    <input id="radio-4" type="radio" name="radio" value="4">
-                                    <label for="radio-4">творог</label>
-                                </div>
-
-                                <div class="filters__radio_btn">
-                                    <input id="radio-5" type="radio" name="radio" value="5">
-                                    <label for="radio-5">яйца</label>
-                                </div>
-                                <div class="filters__radio_btn">
-                                    <input id="radio-6" type="radio" name="radio" value="6">
-                                    <label for="radio-6">мясо</label>
-                                </div>
-                            </div>
-                            <div class="products__wrap">
-                                <div class="products">
-                                    <div class="product">
-                                        <div class="image"><img src="./img/milk.jpg" alt="Молоко"><span>Молоко коровье литр - 60₽ </span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/cottageCheese.jpg" alt="Молоко"><span>Творог килограмм - 240₽ </span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/sourCream.png" alt="Молоко"><span>Сметана 400 грамм - 130₽</span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/sourCream.png" alt="Молоко"><span>Сметана 200 грамм - 65₽</span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/cheese.png" alt="Молоко"><span>Сыр адыгейский килограмм - 400₽</span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/pork.png" alt="Молоко"><span>Мясо свинина килограмм - 300₽</span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/beef.png" alt="Молоко"><span>Мясо говядина (феле) килограмм - 550₽</span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/beefLeg.png" alt="Молоко"><span>Мясо говядина (задняя часть) килограмм - 450₽</span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/beefNeck.png" alt="Молоко"><span>Мясо говядина (передняя часть) килограмм - 420₽</span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/beefRibs.png" alt="Молоко"><span>Мясо говядина (рёберная часть) килограмм - 300₽</span></div>
-                                    </div>
-                                    <div class="product">
-                                        <div class="image"><img src="./img/eggs.png" alt="Яйца"><span>Яйца десяток - 80₽</span></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-            <section class="page_delivery">
-                <div class="delivery__container _container">
-                    <div class="delivery_body">
-                        <h2 class="ourProducts">Доставка и оплата</h2>
-                        <p class="description">Бесплатная доставка по городу Шарья и в пределах 3-4 км от города.</p>
-                        <div class="delivery_steps">
-                            <div class="delivery_step">
-                                <img src="./img/mobile.png" width="50px" height="80px" alt="Заказ по телефону">
-                                <h3>Заказ</h3><span>Свяжитесь с нами, чтобы уточнить удобное время доставки и предпочитаемая продукция</span></div>
-                            <div class="delivery_border">
-                                <svg width="30px" height="10px">
-                                    <path d="M5 5"/>
-                                    <circle cx="5" cy="5" r="2" fill="#485D82"/>
-                                    <circle cx="15" cy="5" r="3" fill="#485D82"/>
-                                    <circle cx="25" cy="5" r="2" fill="#485D82"/>
-                                </svg>
-                            </div>
-                            <div class="delivery_step">
-                                <img src="./img/cards.png" width="110px" height="80px" alt="Оплата">
-                                <h3>Оплата</h3><span>Сообщите, какой способ оплаты для Вас удобен. Оплатить можно наличными при доставке или переводом</span>
-                            </div>
-                            <div class="delivery_border">
-                                <svg width="30px" height="10px">
-                                    <path d="M5 5"/>
-                                    <circle cx="5" cy="5" r="2" fill="#485D82"/>
-                                    <circle cx="15" cy="5" r="3" fill="#485D82"/>
-                                    <circle cx="25" cy="5" r="2" fill="#485D82"/>
-                                </svg>
-                            </div>
-                            <div class="delivery_step">
-                                <img src="./img/car.png" width="180px" height="80px" alt="Доставка">
-                                <h3>Доставка</h3><span>Ожидайте доставку продуктов к согласованному времени </span>
-                            </div>
-                        </div>
-
-                    </div>
-
+        <section class="section milk-section" id="milk">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Несколько фактов <span>о нашем молоке</span></h2>
+                    <p class="section__desc">Молоко и кисломолочные продукты — это вкусно и полезно! Белок укрепляет организм, а кальций — кости</p>
                 </div>
 
-            </section>
-
-        </main>
-        <footer class="footer">
-            <div class="footer__main _container">
-                <div class="footer_body">
-                    <div class="feedback">
-                        <form name="form" action="mail.php" method="post" id="form_message">
-                            <h2>У Вас остались вопросы?</h2>
-                            <p class="notice">Заполните форму и получите ответ:</p>
-                            <div class="titles">Ваше имя*</div> <input class="input" name="userName" type="text" /> </p>
-
-                            <p>
-                                <div class="titles">Электронная почта или телефон*</div> <input class="input" name="emailOrPhone" type="text" /> </p>
-                            <p>
-                                <div class="titles">Текст сообщения:</div><textarea name="message" cols="22" rows="5"></textarea>
-                            </p>
-                            <p><input class='btn_products' id="submit" value="Отправить" type="submit" /></p>
-                        </form>
+                <div class="facts-grid">
+                    <div class="fact-card">
+                        <h3>🏭 Собственный цех</h3>
+                        <p>Фасовка и переработка в творог, сыр, сметану и другие продукты производится без привлечения третьих лиц</p>
+                        <br>
+                        <h3>✅ Гарантия качества</h3>
+                        <p>Молоко и молочные продукты производятся по традиционным технологиям и рецептам</p>
                     </div>
-                    <p class="sign">2021 by PaleCrow</p>
+
+                    <div class="fact-image">
+                        <img src="img/milk.webp" alt="Стакан молока" loading="lazy">
+                    </div>
+
+                    <div class="fact-card">
+                        <h3>🌱 Экологически чистый продукт</h3>
+                        <p>Производится в экологически чистом районе, без применения химических добавок</p>
+                        <br>
+                        <h3>❤️ Сделано с любовью</h3>
+                        <p>Мы любим своё дело и стараемся для Вас, чтобы наше молоко оставалось лучшим</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section delivery-section" id="delivery">
+            <div class="container">
+                <div class="section__header">
+                    <h2 class="section__title">Доставка и <span>оплата</span></h2>
+                    <p class="section__desc">Бесплатная доставка по городу Шарья и в пределах 3–4 км от города</p>
+                </div>
+
+                <div class="delivery-steps">
+                    <div class="delivery-step">
+                        <img src="img/mobile.png" alt="Заказ">
+                        <h3>Заказ</h3>
+                        <p>Свяжитесь с нами, чтобы уточнить время доставки и выбранные продукты</p>
+                    </div>
+                    <div class="delivery-arrow">→</div>
+                    <div class="delivery-step">
+                        <img src="img/cards.png" alt="Оплата">
+                        <h3>Оплата</h3>
+                        <p>Наличными при доставке или переводом — как вам удобнее</p>
+                    </div>
+                    <div class="delivery-arrow">→</div>
+                    <div class="delivery-step">
+                        <img src="img/car.png" alt="Доставка">
+                        <h3>Доставка</h3>
+                        <p>Ожидайте доставку продуктов к согласованному времени</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <footer class="footer-section" id="contacts">
+            <div class="container">
+                <div class="footer__inner">
+                    <div class="footer__info">
+                        <h2>У Вас остались <span style="color:#6ABF8A;">вопросы?</span></h2>
+                        <p>Заполните форму и получите ответ в ближайшее время.</p>
+                    </div>
+
+                    <form class="footer__form" id="formMessage">
+                        <input type="text" name="userName" placeholder="Ваше имя *" required>
+                        <input type="text" name="emailOrPhone" placeholder="Электронная почта или телефон *" required>
+                        <textarea name="message" placeholder="Текст сообщения..." rows="4"></textarea>
+                        <button type="submit" class="submit-btn">Отправить</button>
+                    </form>
+
+                    <div class="footer__bottom">
+                        © 2026 Баско
+                    </div>
                 </div>
             </div>
         </footer>
+
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+
+            const dots = document.querySelectorAll('.scroll-dot');
+            const wrapper = document.getElementById('wrapper');
+            const sections = document.querySelectorAll('.section, .footer-section');
+            const headerNavLinks = document.querySelectorAll('.header__nav a');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+
+            function smoothScrollTo(index) {
+                if (index < 0 || index >= sections.length) return;
+                if (!sections[index]) return;
+
+                isSlideScrolling = true;
+                goToSection(index);
+            }
+
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    smoothScrollTo(index);
+                });
+            });
+
+            headerNavLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const targetSection = document.querySelector(href);
+                    if (targetSection) {
+                        const index = Array.from(sections).indexOf(targetSection);
+                        if (index !== -1) {
+                            smoothScrollTo(index);
+                        }
+                    }
+                });
+            });
+
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const href = this.getAttribute('href');
+                    const targetSection = document.querySelector(href);
+                    if (targetSection) {
+                        const index = Array.from(sections).indexOf(targetSection);
+                        if (index !== -1) {
+                            smoothScrollTo(index);
+                            document.getElementById('mobileMenu').classList.remove('open');
+                            document.getElementById('hamburger').classList.remove('open');
+                        }
+                    }
+                });
+            });
+
+            let currentSection = 0;
+            let isSlideScrolling = false;
+            let slideScrollTimer = null;
+
+            function getCurrentSection() {
+                const scrollTop = wrapper.scrollTop;
+                let closestIndex = 0;
+                let closestDistance = Infinity;
+
+                sections.forEach((section, index) => {
+                    const distance = Math.abs(section.offsetTop - scrollTop);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+
+                return closestIndex;
+            }
+
+            function goToSection(index) {
+                index = Math.max(0, Math.min(index, sections.length - 1));
+                currentSection = index;
+
+                sections[index].scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+
+                clearTimeout(slideScrollTimer);
+                slideScrollTimer = setTimeout(() => {
+                    isSlideScrolling = false;
+                    currentSection = getCurrentSection();
+                }, 850);
+            }
+
+            wrapper.addEventListener('wheel', function(e) {
+                if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
+
+                e.preventDefault();
+
+                if (isSlideScrolling) return;
+
+                const direction = e.deltaY > 0 ? 1 : -1;
+                currentSection = getCurrentSection();
+                const nextSection = currentSection + direction;
+
+                if (nextSection < 0 || nextSection >= sections.length) return;
+
+                isSlideScrolling = true;
+                goToSection(nextSection);
+            }, {
+                passive: false
+            });
+
+            function updateActiveDot() {
+                const scrollTop = wrapper.scrollTop;
+                const windowHeight = wrapper.clientHeight;
+                const scrollHeight = wrapper.scrollHeight;
+
+                const isAtBottom =
+                    scrollTop + windowHeight >= scrollHeight - 5;
+
+                let activeIndex = 0;
+
+                if (isAtBottom) {
+                    activeIndex = sections.length - 1;
+                } else {
+                    sections.forEach((section, index) => {
+                        const rect = section.getBoundingClientRect();
+
+                        if (rect.top <= windowHeight / 3) {
+                            activeIndex = index;
+                        }
+                    });
+                }
+
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === activeIndex);
+                });
+            }
+
+            wrapper.addEventListener('scroll', updateActiveDot);
+            updateActiveDot();
+
+            const productsGrid = document.getElementById('productsGrid');
+            if (productsGrid) {
+                let isDown = false;
+                let startX;
+                let scrollLeftPos;
+
+                productsGrid.addEventListener('mousedown', (e) => {
+                    isDown = true;
+                    productsGrid.style.cursor = 'grabbing';
+                    productsGrid.style.userSelect = 'none';
+                    startX = e.pageX - productsGrid.offsetLeft;
+                    scrollLeftPos = productsGrid.scrollLeft;
+                });
+
+                productsGrid.addEventListener('mouseleave', () => {
+                    isDown = false;
+                    productsGrid.style.cursor = 'grab';
+                    productsGrid.style.userSelect = '';
+                });
+
+                productsGrid.addEventListener('mouseup', () => {
+                    isDown = false;
+                    productsGrid.style.cursor = 'grab';
+                    productsGrid.style.userSelect = '';
+                });
+
+                productsGrid.addEventListener('mousemove', (e) => {
+                    if (!isDown) return;
+                    e.preventDefault();
+                    const x = e.pageX - productsGrid.offsetLeft;
+                    const walk = (x - startX) * 1.5;
+                    productsGrid.scrollLeft = scrollLeftPos - walk;
+                });
+            }
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            const productCards = document.querySelectorAll('.product-card');
+
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+
+                    const filter = this.dataset.filter;
+
+                    productCards.forEach(card => {
+                        if (filter === 'all' || card.dataset.category === filter) {
+                            card.classList.remove('hidden');
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+                });
+            });
+
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+
+            hamburger.addEventListener('click', function() {
+                this.classList.toggle('open');
+                mobileMenu.classList.toggle('open');
+            });
+
+            const form = document.getElementById('formMessage');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('Спасибо! Мы свяжемся с вами в ближайшее время.');
+                this.reset();
+            });
+
+            const headerInner = document.getElementById('headerInner');
+
+            function handleHeaderScroll() {
+                const scrollY = wrapper.scrollTop;
+                if (scrollY > 60) {
+                    headerInner.classList.add('glass');
+                } else {
+                    headerInner.classList.remove('glass');
+                }
+            }
+
+            wrapper.addEventListener('scroll', handleHeaderScroll);
+            handleHeaderScroll();
+
+            let scrollTimeout;
+            wrapper.addEventListener('scroll', function() {
+                clearTimeout(scrollTimeout);
+                scrollTimeout = setTimeout(() => {
+                    updateActiveDot();
+                }, 150);
+            });
+
+        });
+    </script>
 
 </body>
 
