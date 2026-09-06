@@ -617,6 +617,142 @@
             color: rgba(255, 255, 255, 0.2);
             font-size: 24px;
         }
+        /* === about section (объединён из map) === */
+        
+        .about-section {
+            background: #fff;
+            align-items: stretch;
+        }
+        
+        .about-section .container {
+            width: 100%;
+            display: flex;
+            align-items: center;
+        }
+        
+        .about-layout {
+            display: grid;
+            grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.1fr);
+            gap: 50px;
+            width: 100%;
+            max-height: calc(100vh - 120px);
+            max-height: calc(100dvh - 120px);
+        }
+        
+        .about-map {
+            min-width: 0;
+            display: flex;
+            align-items: center;
+        }
+        
+        .about-map iframe {
+            width: 100%;
+            height: min(520px, 70vh);
+            border: 0;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+        }
+        
+        .about_column {
+            min-width: 0;
+            max-height: calc(100vh - 120px);
+            max-height: calc(100dvh - 120px);
+            overflow-y: auto;
+            padding-right: 12px;
+            scrollbar-width: thin;
+            scrollbar-color: #6ABF8A rgba(0, 0, 0, 0.06);
+        }
+        
+        .about_column::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .about_column::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.06);
+            border-radius: 10px;
+        }
+        
+        .about_column::-webkit-scrollbar-thumb {
+            background: #6ABF8A;
+            border-radius: 10px;
+        }
+        
+        .about {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            color: #1A2B3E;
+            margin-bottom: 18px;
+        }
+        
+        .aboutBlock {
+            color: #5A6E82;
+            font-size: 14px;
+        }
+        
+        .aboutBlock p {
+            margin-bottom: 14px;
+        }
+        
+        .aboutBlock table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 8px;
+            font-size: 13px;
+        }
+        
+        .aboutBlock td {
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(45, 62, 80, 0.08);
+            vertical-align: top;
+        }
+        
+        .aboutBlock td:first-child {
+            width: 90px;
+            color: #2D3E50;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        
+        @media (max-width: 992px) {
+            .about-layout {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                max-height: none;
+            }
+            .about-map iframe {
+                height: 300px;
+            }
+            .about_column {
+                max-height: 50vh;
+                max-height: 50dvh;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .about-section {
+                padding-top: 90px;
+            }
+            .about-layout {
+                gap: 18px;
+            }
+            .about-map iframe {
+                height: 240px;
+                border-radius: 16px;
+            }
+            .about {
+                font-size: 28px;
+            }
+            .aboutBlock {
+                font-size: 13px;
+            }
+            .aboutBlock td {
+                padding: 7px 6px;
+            }
+            .aboutBlock td:first-child {
+                width: 76px;
+            }
+        }
+        /* === /about === */
         
         .footer-section {
             background: #0F1A26;
@@ -708,6 +844,31 @@
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             color: rgba(255, 255, 255, 0.3);
             font-size: 13px;
+        }
+        
+        .footer__socials {
+            display: flex;
+            gap: 16px;
+            margin-top: 20px;
+        }
+        
+        .footer__socials a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            transition: all 0.3s ease;
+            color: #fff;
+            font-size: 20px;
+            font-weight: 600;
+        }
+        
+        .footer__socials a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0px 0px 10px rgba(106, 191, 138, 0.3);
         }
         
         .scroll-indicator {
@@ -855,6 +1016,7 @@
                     <a href="#products">Продукты</a>
                     <a href="#milk">О молоке</a>
                     <a href="#delivery">Доставка</a>
+                    <a href="#about">О ферме</a>
                     <a href="#contacts">Контакты</a>
                 </nav>
 
@@ -874,6 +1036,7 @@
             <a href="#products">Продукты</a>
             <a href="#milk">О молоке</a>
             <a href="#delivery">Доставка</a>
+            <a href="#about">О ферме</a>
             <a href="#contacts">Контакты</a>
         </div>
 
@@ -883,6 +1046,7 @@
             <div class="scroll-dot" data-index="2"></div>
             <div class="scroll-dot" data-index="3"></div>
             <div class="scroll-dot" data-index="4"></div>
+            <div class="scroll-dot" data-index="5"></div>
         </div>
 
         <section class="section hero" id="hero">
@@ -1050,12 +1214,107 @@
             </div>
         </section>
 
+        <section class="section about-section" id="about">
+            <div class="container">
+                <div class="about-layout">
+                    <div class="about-map">
+                        <iframe src="https://yandex.ru/map-widget/v1/?um=constructor%3A5aa05592a551d4f077bd1104646c9d3276392190669cdced8fe98bc96a730e47&amp;source=constructor" width="789" height="442" frameborder="0"></iframe>
+                    </div>
+
+                    <div class="about_column">
+                        <h2 class="about">О ферме</h2>
+                        <div class="aboutBlock">
+                            <p>ИП ВЕРШИНИНА И.Г.</p>
+                            <p>ИНН 440702568344, ОГРНИП 316440100077986.</p>
+                            <p>Основной вид деятельности (по коду ОКВЭД): 01.41 - Разведение молочного крупного рогатого скота, производство сырого молока</p>
+                            <p>Дополнительные виды деятельности по ОКВЭД:</p>
+                            <table>
+                                <tr>
+                                    <td>01.41.11</td>
+                                    <td>Разведение молочного крупного рогатого скота, кроме племенного</td>
+                                </tr>
+                                <tr>
+                                    <td>01.41.12</td>
+                                    <td>Разведение племенного молочного крупного рогатого скота</td>
+                                </tr>
+                                <tr>
+                                    <td>01.41.21</td>
+                                    <td>Производство сырого коровьего молока</td>
+                                </tr>
+                                <tr>
+                                    <td>01.45.1</td>
+                                    <td>Разведение овец и коз</td>
+                                </tr>
+                                <tr>
+                                    <td>01.45.3</td>
+                                    <td>Производство сырой (немытой) шерсти и волоса козы</td>
+                                </tr>
+                                <tr>
+                                    <td>01.45.4</td>
+                                    <td>Разведение племенных овец и коз</td>
+                                </tr>
+                                <tr>
+                                    <td>01.46.1</td>
+                                    <td>Выращивание и разведение свиней</td>
+                                </tr>
+                                <tr>
+                                    <td>01.47.1</td>
+                                    <td>Выращивание и разведение сельскохозяйственной птицы: кур, индеек, уток, гусей и цесарок</td>
+                                </tr>
+                                <tr>
+                                    <td>01.47.2</td>
+                                    <td>Производство яиц сельскохозяйственной птицы</td>
+                                </tr>
+                                <tr>
+                                    <td>01.47.3</td>
+                                    <td>Деятельность инкубаторов для птицеводства</td>
+                                </tr>
+                                <tr>
+                                    <td>01.61</td>
+                                    <td>Предоставление услуг в области растениеводства</td>
+                                </tr>
+                                <tr>
+                                    <td>10.11</td>
+                                    <td>Переработка и консервирование мяса</td>
+                                </tr>
+                                <tr>
+                                    <td>10.12</td>
+                                    <td>Производство и консервирование мяса птицы</td>
+                                </tr>
+                                <tr>
+                                    <td>10.13</td>
+                                    <td>Производство продукции из мяса убойных животных и мяса птицы</td>
+                                </tr>
+                                <tr>
+                                    <td>10.41</td>
+                                    <td>Производство масел и жиров</td>
+                                </tr>
+                                <tr>
+                                    <td>10.51</td>
+                                    <td>Производство молока (кроме сырого) и молочной продукции</td>
+                                </tr>
+                                <tr>
+                                    <td>10.85</td>
+                                    <td>Производство готовых пищевых продуктов и блюд</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <footer class="footer-section" id="contacts">
             <div class="container">
                 <div class="footer__inner">
                     <div class="footer__info">
                         <h2>У Вас остались <span style="color:#6ABF8A;">вопросы?</span></h2>
                         <p>Заполните форму и получите ответ в ближайшее время.</p>
+                        <div class="footer__socials">
+                            <a href="https://max.ru/u/f9LHodD0cOKxEm8FRdt8Bm5nokcWwf2kt1zLzzxayzJyrNcfK_VP5tw68tM" target="_blank" aria-label="Max"><img src="img/MAX.svg" alt="MAX"></a>
+                            <a href="https://vk.ru/ksm44" target="_blank" aria-label="VK"><img src="img/vk.svg" alt="VK"></a>
+                            <a href="https://t.me/Sergey_01_V" target="_blank" aria-label="Telegram"><img src="img/telegram.svg" alt="Telegram"></a>
+                        </div>
                     </div>
 
                     <form class="footer__form" id="formMessage">
@@ -1245,6 +1504,22 @@
                     const x = e.pageX - productsGrid.offsetLeft;
                     const walk = (x - startX) * 1.5;
                     productsGrid.scrollLeft = scrollLeftPos - walk;
+                });
+            }
+
+            // проброс колеса для about_column (чтобы не мешало скроллу секций)
+            const aboutColumn = document.querySelector('.about_column');
+            if (aboutColumn) {
+                aboutColumn.addEventListener('wheel', function(e) {
+                    const canScroll = this.scrollHeight > this.clientHeight;
+                    const atTop = this.scrollTop <= 0;
+                    const atBottom = this.scrollTop + this.clientHeight >= this.scrollHeight - 1;
+
+                    if (canScroll && ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop))) {
+                        e.stopPropagation();
+                    }
+                }, {
+                    passive: true
                 });
             }
 
