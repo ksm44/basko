@@ -140,12 +140,12 @@
                     </div>
                     <div class="product-card" data-category="meat">
                         <div class="product-card__image"><img src="img/beefLeg.png" alt="Говядина" loading="lazy"></div>
-                        <div class="product-card__name">Говядина (задняя)</div>
+                        <div class="product-card__name">Говядина<br>(задняя часть)</div>
                         <div class="product-card__price">450 ₽ / кг</div>
                     </div>
                     <div class="product-card" data-category="meat">
                         <div class="product-card__image"><img src="img/beefNeck.png" alt="Говядина" loading="lazy"></div>
-                        <div class="product-card__name">Говядина (передняя)</div>
+                        <div class="product-card__name">Говядина<br>(передняя часть)</div>
                         <div class="product-card__price">420 ₽ / кг</div>
                     </div>
                     <div class="product-card" data-category="meat">
@@ -170,25 +170,32 @@
                 </div>
 
                 <div class="facts-grid reveal reveal-second">
-                    <div class="fact-card">
-                        <h3>🏭 Собственный цех</h3>
-                        <p>Фасовка и переработка в творог, сыр, сметану и другие продукты производится без привлечения третьих лиц</p>
-                        <br>
-                        <h3>✅ Гарантия качества</h3>
-                        <p>Молоко и молочные продукты производятся по традиционным технологиям и рецептам</p>
+                    <div class="left-cards">
+                        <div class="fact-card">
+                            <h3>🏭 Собственный цех</h3>
+                            <p>Фасовка и переработка в творог, сыр, сметану и другие продукты производится без привлечения третьих лиц</p>
+                        </div>
+                        <div class="fact-card">
+                            <h3>✅ Гарантия качества</h3>
+                            <p>Молоко и молочные продукты производятся по традиционным технологиям и рецептам</p>
+                        </div>
                     </div>
 
                     <div class="fact-image">
                         <img src="img/milk.webp" alt="Стакан молока" loading="lazy">
                     </div>
 
-                    <div class="fact-card">
-                        <h3>🌱 Экологически чистый продукт</h3>
-                        <p>Производится в экологически чистом районе, без применения химических добавок</p>
-                        <br>
-                        <h3>❤️ Сделано с любовью</h3>
-                        <p>Мы любим своё дело и стараемся для Вас, чтобы наше молоко оставалось лучшим</p>
+                    <div>
+                        <div class="fact-card">
+                            <h3>🌱 Экологически чистый продукт</h3>
+                            <p>Производится в экологически чистом районе, без применения химических добавок</p>
+                        </div>
+                        <div class="fact-card">
+                            <h3>❤️ Сделано с любовью</h3>
+                            <p>Мы любим своё дело и стараемся для Вас, чтобы наше молоко оставалось лучшим</p>
+                        </div>
                     </div>
+
                 </div>
             </div>
         </section>
@@ -202,21 +209,28 @@
 
                 <div class="delivery-steps reveal reveal-second">
                     <div class="delivery-step">
-                        <img src="img/mobile.png" alt="Заказ">
-                        <h3>Заказ</h3>
-                        <p>Свяжитесь с нами, чтобы уточнить время доставки и выбранные продукты</p>
+                        <div class="wrap">
+                            <img src="img/mobile.png" alt="Заказ">
+                            <h3>Заказ</h3>
+                        </div>
+                        <div class="delivery-decription">Свяжитесь с нами, чтобы уточнить время доставки и выбранные продукты</div>
                     </div>
                     <div class="delivery-arrow">→</div>
                     <div class="delivery-step">
-                        <img src="img/cards.png" alt="Оплата">
-                        <h3>Оплата</h3>
-                        <p>Наличными при доставке или переводом — как вам удобнее</p>
+                        <div class="wrap">
+                            <img src="img/cards.png" alt="Оплата">
+                            <h3>Оплата</h3>
+                        </div>
+
+                        <div class="delivery-decription">Наличными при доставке или переводом — как вам удобнее</div>
                     </div>
                     <div class="delivery-arrow">→</div>
                     <div class="delivery-step">
-                        <img src="img/car.png" alt="Доставка">
-                        <h3>Доставка</h3>
-                        <p>Ожидайте доставку продуктов к согласованному времени</p>
+                        <div class="wrap">
+                            <img src="img/car.png" alt="Доставка">
+                            <h3>Доставка</h3>
+                        </div>
+                        <div class="delivery-decription">Ожидайте доставку продуктов к согласованному времени</div>
                     </div>
                 </div>
             </div>
@@ -607,6 +621,100 @@
         });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        //Анимация скрол-бара
+        (function() {
+
+
+            const grid = document.querySelector('.products-grid');
+            if (!grid) return;
+
+            const SPEED = 0.5; // пикселей за кадр
+            const PAUSE_AT_EDGE = 700; // пауза на краю, мс
+
+
+            let isPaused = false; // пауза на краю
+            let isHovered = false; // курсор над блоком
+            let rafId = null;
+
+            // === Остановка при наведении на сам контейнер ===
+            grid.addEventListener('mouseenter', () => {
+                isHovered = true;
+            });
+            grid.addEventListener('mouseleave', () => {
+                isHovered = false;
+            });
+
+            // На всякий случай — если курсор «залип» (например, после drag)
+            window.addEventListener('blur', () => {
+                isHovered = false;
+            });
+
+            const observer = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        //Элемент появился на экране
+                        isHovered = false;
+                        let direction = 1;
+
+                        function step() {
+                            // Проверяем размеры на каждом кадре — решает проблему "не работает в начале"
+                            const maxScroll = grid.scrollWidth - grid.clientWidth;
+
+
+                            if (!isHovered && !isPaused && maxScroll > 0) {
+                                let next = grid.scrollLeft + SPEED * direction;
+
+                                if (Math.ceil(next) - 1 >= maxScroll) {
+                                    //смена направления;
+                                    direction = -1;
+                                    pause();
+
+                                } else if (next <= 0) {
+                                    direction = 1;
+                                    pause();
+                                }
+                                grid.scrollLeft = next + direction;
+                            }
+
+                            rafId = requestAnimationFrame(step);
+                        }
+
+                        function pause() {
+                            isPaused = true;
+                            setTimeout(() => {
+                                isPaused = false;
+                            }, PAUSE_AT_EDGE);
+                        }
+
+                        // Стартуем только после полной загрузки, чтобы размеры были корректными
+                        window.addEventListener('load', () => {
+                            rafId = requestAnimationFrame(step);
+                        });
+
+                        // Если load уже прошёл — стартуем сразу
+                        if (document.readyState === 'complete') {
+                            rafId = requestAnimationFrame(step);
+                        }
+
+                        document.addEventListener('visibilitychange', () => {
+                            if (document.hidden) {
+                                cancelAnimationFrame(rafId);
+                                rafId = null;
+                            } else if (!rafId) {
+                                rafId = requestAnimationFrame(step);
+                            }
+                        });
+                    } else {
+                        console.log('Элемент не видно!');
+                        isHovered = true;
+                    }
+                });
+            });
+            observer.observe(document.querySelector('.products-grid'));
+
+
+        })();
     </script>
 
 </body>

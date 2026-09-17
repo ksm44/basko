@@ -14,6 +14,14 @@
         margin: 0;
         padding: 0;
     }
+    /* Отключение выделения  */
+    
+    * {
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
     
     ul[class],
     ol[class] {
@@ -52,6 +60,7 @@
         color: #2D3E50;
         background: #FAFBFD;
         overflow: hidden;
+        cursor: default;
     }
     
     a {
@@ -434,6 +443,7 @@
     
     .filter-btn:hover {
         transform: translateY(-2px);
+        background: #cbbe9f;
     }
     
     .filter-btn.active {
@@ -449,16 +459,18 @@
     .products-grid {
         display: flex;
         flex-direction: column;
+        /* justify-content: center; */
+        align-items: center;
         flex-wrap: wrap;
         gap: 20px;
-        height: 300px;
-        max-height: 620px;
+        /* height: 300px;
+        max-height: 620px; */
         overflow-x: auto;
         overflow-y: hidden;
         padding: 10px 4px 20px;
         -webkit-overflow-scrolling: touch;
         scrollbar-width: auto;
-        align-content: flex-start;
+        /* align-content: flex-start; */
         cursor: grab;
         user-select: none;
         scroll-behavior: smooth;
@@ -543,6 +555,7 @@
         font-weight: 600;
         color: #1d1b18;
         margin-bottom: 4px;
+        line-height: 1;
     }
     
     .product-card__price {
@@ -563,12 +576,22 @@
         margin-top: 20px;
     }
     
-    .facts-grid .fact-card:first-child {
+    .left-cards {
         text-align: right;
     }
     
     .fact-card {
-        padding: 20px 0;
+        padding: 20px 10px;
+        margin-bottom: 15px;
+        border-radius: 20px;
+        border: 1px solid #fff;
+    }
+    
+    .fact-card:hover {
+        border: 1px solid #cedde9;
+        background: #f0f8ff;
+        transform: translateY(-4px);
+        transition: 0.3s;
     }
     
     .fact-card h3 {
@@ -617,6 +640,12 @@
         flex-wrap: wrap;
     }
     
+    .wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    
     .delivery-step {
         background: rgba(255, 255, 255, 0.06);
         backdrop-filter: blur(10px);
@@ -649,7 +678,7 @@
         margin-bottom: 8px;
     }
     
-    .delivery-step p {
+    .delivery-step .delivery-decription {
         font-size: 14px;
         color: rgba(255, 255, 255, 0.7);
         line-height: 1.5;
@@ -962,9 +991,15 @@
         .facts-grid {
             grid-template-columns: 1fr;
             gap: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+            text-align: center;
         }
-        .facts-grid .fact-card:first-child {
-            text-align: left;
+        .facts-grid .fact-card {
+            padding: 20px 60px;
         }
         .fact-image img {
             max-height: 200px;
@@ -1010,8 +1045,10 @@
             align-items: center;
             gap: 5px;
         }
+        .wrap {
+            padding: 0 20px;
+        }
         .delivery-step {
-            max-width: 100%;
             width: 100%;
         }
         .delivery-arrow {
@@ -1026,7 +1063,20 @@
             height: 8px;
         }
         .delivery-step {
+            display: flex;
+            align-items: center;
+            gap: 20px;
             padding: 10px;
+        }
+        .left-cards {
+            text-align: inherit;
+        }
+        .products-grid {
+            gap: 5px
+        }
+        .product-card {
+            height: 215px;
+            min-height: auto;
         }
     }
     
@@ -1121,16 +1171,12 @@
     @media (max-width: 380px) {
         .product-card {
             flex: 0 0 140px;
-            height: 190px;
-            min-height: 190px;
+            min-height: 165px;
             width: 140px;
             padding: 10px 10px 10px;
         }
         .product-card__image {
             height: 70px;
-        }
-        .product-card__image img {
-            max-height: 70px;
         }
         .product-card__name {
             font-size: 11px;
